@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "develop": "next dev",
-    "build": "next build",
     "start":"browser-sync start --server --files index.css",
     "dev": "browser-sync start --server --files index.css",
     "share": "browser-sync start --proxy \"index.html\" --files index.css",
