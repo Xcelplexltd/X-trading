@@ -10,11 +10,11 @@ import yfinance as yf
 import plotly.figure_factory as ff
 
 today = date.today()
-date_Diff = today - timedelta(days=364)
+date_Diff = today - timedelta(days=12)
 start_Date = date_Diff
 end_Date = today
 #data= yf.download(ticker,start_Date,end_Date)
-st.title("Tech Information ")
+#st.title("Tech Information ")
 ticker_list = ["MSFT","AMD","AAPL","META","GOOGL","NVDA","PYPL","AMZN","INTC","CRM" ]
 data = []
 tempDict = {}
@@ -22,7 +22,7 @@ tempDict_lines = {}
 df_Close=[]
 df_Data = []
 num = 0
-st.write(df_Close)
+#st.write(df_Close)
 for i in ticker_list:
     data= yf.download(i,start_Date,end_Date)
     #fig = px.line(data, x=data.index, y=data['Adj Close'], title=i)
@@ -32,16 +32,18 @@ for i in ticker_list:
     df_Close.rename(columns={'Close':i}, inplace = True)
     df_Data.append(df_Close)
     df_Close= pd.concat(df_Data, axis=1)
+    df_Close = df_Close.round(5)
     df_Close.index = df_Close.index.strftime('%d-%m-%y')
     
 
 df_Close.insert(0, "Date", df_Close.index, True)
 
-st.write(df_Close)
+#st.write(df_Close)
 for template in [ "plotly_dark"]:
-    fig = go.Figure(data=go.Table(header=dict(values= list(df_Close.columns)),
-                              cells=dict(values = list(df_Close.T.values))))
+    fig = go.Figure(data=go.Table(header=dict(values= list(df_Close.columns), align = 'left', fill_color = '#1D6270'),
+                              cells=dict(values = df_Close.transpose().values.tolist(), align='left',fill_color = '#606060',font_size=8, height = 25)))
     fig.update_layout(template=template)
-    fig.update_layout(coloraxis = {'colorscale':'viridis'})
+    fig.update_layout( coloraxis = {'colorscale':'viridis'})
 #fig.update.update_layout()
-fig.show()
+#fig.show()
+fig

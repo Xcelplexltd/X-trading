@@ -1,0 +1,4 @@
+API key = Ml9xI2KdPLgEHiJPZH5S
+Username = xcelplex
+
+Plotly Credentials file path = Windows/Users/Saniya/.plotly/.credentials
